@@ -1,0 +1,100 @@
+labels:
+  pleural_effusion:
+    - pleural effusion
+    - pleural fluid
+    - effusion
+  pericardial_effusion:
+    - pericardial effusion
+    - pericardial fluid
+  ascites:
+    - ascites
+    - free fluid
+    - peritoneal fluid
+  pneumothorax:
+    - pneumothorax
+    - collapsed lung
+  consolidation:
+    - consolidation
+    - consolidative change
+  atelectasis:
+    - atelectasis
+    - atelectatic
+  fracture:
+    - fracture
+    - fractures
+    - broken bone
+  hemorrhage:
+    - hemorrhage
+    - haemorrhage
+    - bleed
+    - bleeding
+    - hematoma
+    - haematoma
+  infarct:
+    - infarct
+    - infarction
+    - ischemia
+    - ischaemia
+  mass:
+    - mass
+    - lesion
+    - tumor
+    - tumour
+    - neoplasm
+  nodule:
+    - nodule
+    - nodular lesion
+  cyst:
+    - cyst
+    - cystic lesion
+  abscess:
+    - abscess
+    - infected collection
+  edema:
+    - edema
+    - oedema
+    - swelling
+  obstruction:
+    - obstruction
+    - obstructed
+    - ileus
+  hydronephrosis:
+    - hydronephrosis
+    - hydronephrotic
+  lymphadenopathy:
+    - lymphadenopathy
+    - enlarged lymph nodes
+    - lymph node enlargement
+  calcification:
+    - calcification
+    - calcified
+    - calcific
+  aneurysm:
+    - aneurysm
+    - aneurysmal dilatation
+    - aortic aneurysm
+  hernia:
+    - hernia
+    - herniation
+    - hiatus hernia
+    - inguinal hernia
+  gallstone:
+    - gallstone
+    - cholelithiasis
+    - gallbladder calculus
+  appendicitis:
+    - appendicitis
+    - inflamed appendix
+  diverticulitis:
+    - diverticulitis
+    - inflamed diverticulum
+  hydrocephalus:
+    - hydrocephalus
+    - ventriculomegaly
+  pulmonary_embolism:
+    - pulmonary embolism
+    - pulmonary embolus
+    - embolus
+  bowel_obstruction:
+    - bowel obstruction
+    - intestinal obstruction

@@ -1,0 +1,34 @@
+# Data and outputs
+data/
+outputs/
+checkpoints/
+finetune_data/
+pseudo_masks_output/
+*.npy
+*.npz
+*.nrrd
+*.nii.gz
+
+# Trained model weights
+*.bin
+*.pt
+*.pth
+*.safetensors
+
+# Logs
+*.log
+*.out
+runs/
+slurm-*.out
+
+# Cache / IDE
+__pycache__/
+*.pyc
+.cache/
+.vscode/
+.idea/
+.DS_Store
+
+# Env
+.env
+*.egg-info/

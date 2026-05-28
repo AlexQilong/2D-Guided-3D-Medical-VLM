@@ -1,0 +1,39 @@
+# Python 3.10
+# torch / torchvision: install with CUDA build matching your driver
+# Example (CUDA 11.8):
+#   pip install torch==2.2.1+cu118 torchvision==0.17.1+cu118 \
+#       --index-url https://download.pytorch.org/whl/cu118
+
+# Core
+torch>=2.2.0
+torchvision
+transformers>=4.44.0
+accelerate
+deepspeed>=0.13.4
+peft==0.8.2
+safetensors
+
+# Medical imaging
+monai==1.3.0
+nibabel==5.2.1
+SimpleITK==2.3.1
+pynrrd
+
+# Vision
+opencv-python
+Pillow
+
+# Evaluation
+bert-score
+rouge-score
+rouge==1.0.1
+scikit-learn
+
+# Misc
+numpy==1.26.4
+pandas
+scipy
+tqdm
+einops
+pyyaml
+tensorboardX
