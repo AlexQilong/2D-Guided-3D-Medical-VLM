@@ -1,17 +1,21 @@
 # 2D-Guided 3D Medical VLM
 
-Official code for **"2D-Guided 3D Medical Vision–Language Model"**.
+Code for **"Why Only 3D for 3D? 2D-Guided Supervision for 3D Medical Vision–Language Models"** (KDD '26).
 
-We use off-the-shelf 2D foundation models — **Qwen3-VL-8B** for report generation and **MedSAM** for mask generation — to produce *pseudo* labels from individual CT/MRI slices, then train a 3D medical VLM (LaMed-Phi-3) on those pseudo labels. The result: a 3D VLM that does report generation and referring-expression segmentation **without** any human-annotated 3D supervision (or with very little of it).
+## Intro
 
-This repo lets you reproduce both tracks of the paper:
+3D medical vision–language models are bottlenecked by the scarcity of expert 3D annotations. We bridge this gap by using off-the-shelf 2D foundation models as automatic annotators: a 2D teacher produces per-slice predictions that are aggregated into volume-level pseudo-labels, which then supervise a 3D student model. At inference time, the student operates on full volumes without any 2D component.
 
-1. **Report generation on M3D-Cap** — Qwen3-VL-generated reports as pseudo supervision (BERTScore F1, ROUGE-1, Clinical F1)
-2. **Segmentation on Duke Breast Cancer MRI** — MedSAM-generated masks combined with limited expert GT (Dice / IoU)
+**The framework is architecture-agnostic and modular.** The 2D teacher and 3D student interact only through pseudo-labels, so both components are independently swappable. A stronger 2D VLM can be plugged in by regenerating pseudo-labels, and any 3D VLM that trains on reports or masks can serve as the student. The same recipe also extends naturally from language tasks (report generation) to spatial tasks (segmentation).
+
+This repository reproduces both experimental tracks from the paper:
+
+1. **Report generation on M3D-Cap** — pseudo-reports as supervision. Metrics: BERTScore F1, ROUGE-1, Clinical F1 (Micro / Macro).
+2. **Segmentation on Duke Breast Cancer MRI** — pseudo-masks combined with limited expert GT. Metrics: Dice, IoU.
 
 ---
 
-## Method overview
+## Method Overview
 
 ```
                   ┌───────────────────────────────┐
@@ -22,9 +26,9 @@ This repo lets you reproduce both tracks of the paper:
                 ▼                                   ▼
 ┌─────────────────────────────┐     ┌─────────────────────────────┐
 │  3 canonical 2D slices      │     │  Per-slice anatomical bbox  │
-│  (axial / sagittal / coronal)│    │  via Qwen2-VL prompt        │
+│ (axial / sagittal / coronal)│     │  via Qwen2-VL prompt        │
 │  → Qwen3-VL-8B report each  │     │  → MedSAM mask refinement   │
-│  → text summarizer LLM      │     │  → 3D pseudo mask volume    │
+│  → summarizer LLM (reuse)   │     │  → 3D pseudo mask volume    │
 └──────────────┬──────────────┘     └──────────────┬──────────────┘
                │                                   │
                ▼                                   ▼
@@ -39,6 +43,14 @@ This repo lets you reproduce both tracks of the paper:
 ```
 
 ---
+
+## Model Choices
+
+In our experiments, we instantiate the framework with the following 2D teachers and 3D student. Both the teacher and student are interchangeable — any 2D model capable of the corresponding task (report generation or bounding-box localization) can serve as the teacher, and any 3D VLM that trains on reports or masks can serve as the student. No architectural changes are needed when swapping either component.
+
+- **2D teacher for reports:** Qwen3-VL-8B generates per-slice reports for axial/sagittal/coronal views, then consolidates them into a single scan-level pseudo-report (same model used for both per-slice reporting and summarization).
+- **2D teacher for segmentation:** Qwen2-VL produces per-slice bounding boxes; MedSAM refines each box into a mask; then slice-level masks are stacked into a volumetric pseudo-mask.
+- **3D student:** LaMed-Phi-3 (Phi-3-mini + M3D-CLIP ViT + M3D-LaMed projector + SegVol head for segmentation).
 
 ## Repository layout
 
@@ -175,34 +187,22 @@ bash scripts/06_eval_segmentation.sh ./outputs/finetune_duke_gt_plus_pseudo
 
 ---
 
-## Reproducing paper results
-
-### Table 1 — Report generation (M3D-Cap)
-
-Qwen3-VL pseudo reports on the 500-sample held-out test split:
-
-| Train size | BERTScore F1 ↑ | ROUGE-1 ↑ | Clinical F1 (Micro) ↑ | Clinical F1 (Macro) ↑ |
-|------------|----------------|-----------|-----------------------|-----------------------|
-| 100   | 0.812 | 0.145 | 0.267 | 0.032 |
-| 500   | 0.822 | 0.169 | 0.293 | 0.082 |
-| 2000  | 0.829 | 0.186 | 0.266 | 0.083 |
-| 10000 | 0.834 | 0.199 | 0.237 | 0.077 |
-
-### Table 5 — Segmentation (Duke Breast Cancer MRI)
-
-See the paper for the full table of conditions (GT-only, Pseudo-only, GT+100 Pseudo, GT+500 Pseudo). All are reproducible with `scripts/04_train_segmentation.sh` + `scripts/06_eval_segmentation.sh`.
-
----
-
 ## Citation
 
 ```bibtex
-@inproceedings{2dguided3dvlm,
-  title={2D-Guided 3D Medical Vision--Language Model},
-  author={...},
-  year={2026}
+@inproceedings{zhao2026why,
+  title     = {Why Only {3D} for {3D}? {2D}-Guided Supervision for {3D} Medical Vision-Language Models},
+  author    = {Zhao, Qilong and Qin, Ziyuan and Zhao, Liang},
+  booktitle = {Proceedings of the 32nd ACM SIGKDD Conference on Knowledge Discovery and Data Mining (KDD '26)},
+  year      = {2026},
+  publisher = {ACM},
+  address   = {New York, NY, USA},
+  doi       = {10.1145/3770855.3818970},
+  url       = {https://doi.org/10.1145/3770855.3818970}
 }
 ```
+
+**Contact:** Qilong Zhao (<alexqilong@gmail.com>)
 
 ---
 
