@@ -209,13 +209,7 @@ bash scripts/06_eval_segmentation.sh ./outputs/finetune_duke_gt_plus_pseudo
 ## Acknowledgements
 
 This repo builds directly on:
-- **[M3D](https://github.com/BAAI-DCAI/M3D)** (Apache 2.0) — base 3D VLM (LaMed-Phi-3, ViT3D, M3D-CLIP)
+- **[M3D](https://github.com/BAAI-DCAI/M3D)** — base 3D VLM (LaMed-Phi-3, ViT3D, M3D-CLIP)
 - **[SegVol](https://github.com/BAAI-DCAI/SegVol)** — 3D segmentation backbone
 - **[MedSAM](https://github.com/bowang-lab/MedSAM)** / **[Segment Anything](https://github.com/facebookresearch/segment-anything)** — 2D mask refinement
 - **[Qwen3-VL](https://huggingface.co/Qwen/Qwen3-VL-8B-Instruct)** / **[Qwen2-VL](https://huggingface.co/Qwen/Qwen2-VL-7B-Instruct)** — 2D vision–language models
-
----
-
-## License
-
-Apache License 2.0. See [LICENSE](LICENSE).
