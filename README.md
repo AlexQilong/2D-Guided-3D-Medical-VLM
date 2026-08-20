@@ -2,10 +2,6 @@
 
 Code for **[Why Only 3D for 3D? 2D-Guided Supervision for 3D Medical Vision–Language Models](https://dl.acm.org/doi/10.1145/3770855.3818970)** (KDD '26).
 
-## Poster
-
-[<img src="assets/KDD2026_poster_36x48.pdf" width="600">](assets/KDD2026_poster_36x48.pdf)
-
 ## Intro
 
 3D medical vision–language models are bottlenecked by the scarcity of expert 3D annotations. We bridge this gap by using off-the-shelf 2D foundation models as automatic annotators: a 2D teacher produces per-slice predictions that are aggregated into volume-level pseudo-labels, which then supervise a 3D student model. At inference time, the student operates on full volumes without any 2D component.
