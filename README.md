@@ -1,6 +1,10 @@
 # 2D-Guided 3D Medical VLM
 
-Code for **"Why Only 3D for 3D? 2D-Guided Supervision for 3D Medical Vision–Language Models"** (KDD '26).
+Code for **[Why Only 3D for 3D? 2D-Guided Supervision for 3D Medical Vision–Language Models](https://dl.acm.org/doi/10.1145/3770855.3818970)** (KDD '26).
+
+## Poster
+
+[<img src="assets/KDD2026_poster_36x48.pdf" width="600">](assets/KDD2026_poster_36x48.pdf)
 
 ## Intro
 
